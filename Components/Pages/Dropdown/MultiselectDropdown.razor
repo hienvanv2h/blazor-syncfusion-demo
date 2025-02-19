@@ -1,0 +1,69 @@
+﻿@page "/multiselect-dropdown"
+
+<PageTitle>Multiselect Dropdown - Example</PageTitle>
+
+<h3>Multiselect Dropdown</h3>
+<hr/>
+
+<div class="col-4 mx-auto">
+	<h4>Box Mode (Default)</h4>
+    <SfMultiSelect TValue="string[]" TItem="Game" DataSource="@GameList" Placeholder="Chọn môn thể thao yêu thích">
+        <MultiSelectFieldSettings Text="Name" Value="ID"></MultiSelectFieldSettings>
+    </SfMultiSelect>
+</div>
+
+<div class="col-4 mx-auto mt-4">
+    <h4>Checkbox Mode</h4>
+    <SfMultiSelect TValue="string[]" TItem="Game" DataSource="@GameList" Placeholder="Chọn môn thể thao yêu thích"
+            Mode="VisualMode.CheckBox">
+        <MultiSelectFieldSettings Text="Name" Value="ID"></MultiSelectFieldSettings>
+    </SfMultiSelect>
+</div>
+
+<div class="col-4 mx-auto mt-4">
+    <h4>Reorder</h4>
+    <SfMultiSelect TValue="string[]" TItem="Game" DataSource="@GameList" Placeholder="Chọn môn thể thao yêu thích"
+                   Mode="VisualMode.CheckBox" 
+                   EnableSelectionOrder="false">
+        <MultiSelectFieldSettings Text="Name" Value="ID"></MultiSelectFieldSettings>
+    </SfMultiSelect>
+</div>
+
+<div class="col-4 mx-auto mt-4">
+    <h4>Enable Select All Options</h4>
+    <SfMultiSelect TValue="string[]" TItem="Game" DataSource="@GameList" Placeholder="Chọn môn thể thao yêu thích"
+                   Mode="VisualMode.CheckBox" 
+                   EnableSelectionOrder="false" 
+                   ShowSelectAll="true" SelectAllText="Chọn tất cả" UnSelectAllText="Hủy chọn tất cả">
+        <MultiSelectFieldSettings Text="Name" Value="ID"></MultiSelectFieldSettings>
+    </SfMultiSelect>
+</div>
+
+@code {
+    public string[] SelectedGames { get; set;}
+
+    List<Game> GameList = new List<Game> 
+    {
+        new Game() { ID= "Game1", Name= "American Football" },
+        new Game() { ID= "Game2", Name= "Badminton" },
+        new Game() { ID= "Game3", Name= "Basketball" },
+        new Game() { ID= "Game4", Name= "Cricket" },
+        new Game() { ID= "Game5", Name= "Football" },
+        new Game() { ID= "Game6", Name= "Golf" },
+        new Game() { ID= "Game7", Name= "Hockey" },
+        new Game() { ID= "Game8", Name= "Rugby"},
+        new Game() { ID= "Game9", Name= "Snooker" },
+        new Game() { ID= "Game10", Name= "Tennis"},
+    };
+}
+
+<style>
+    .e-multiselect .e-multi-select-wrapper .e-chips .e-chipcontent {
+        font-family: cursive;
+        -webkit-text-fill-color: blue;
+    }
+    .e-multi-select-wrapper .e-chips {
+        background-color: pink;
+        border-radius: 16px
+    }
+</style>

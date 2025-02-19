@@ -1,0 +1,23 @@
+﻿<h3>Numeric Textbox</h3>
+<hr/>
+
+<div class="d-flex flex-column gap-2">
+	<SfNumericTextBox TValue="int?" Value=10></SfNumericTextBox>
+	<SfNumericTextBox TValue="int?" Value=10 Min=0 Step=5></SfNumericTextBox>
+	<SfNumericTextBox TValue="double?" Value=99 Min=0></SfNumericTextBox>
+	<div>Format</div>
+	<SfNumericTextBox TValue="double?" Value=10 Format="c2"></SfNumericTextBox>
+	<SfNumericTextBox TValue="double?" Value=10 Format="$ 000.00"></SfNumericTextBox>
+	<SfNumericTextBox TValue="double?" Value=12345678 Format="###,### ₫"></SfNumericTextBox>
+
+	<div>Binding value</div>
+	<div class="d-flex gap-2">
+		<SfNumericTextBox TValue="double?" Format="###,### ₫" @bind-Value="@NumericValue"></SfNumericTextBox>
+		<input type="number" readonly="true" disabled="true" @bind-value="@NumericValue" class="bg-secondary text-danger" />
+	</div>
+</div>
+
+@code {
+	// Custom specifiers: #, 0
+	public double? NumericValue { get; set; } = 123;
+}

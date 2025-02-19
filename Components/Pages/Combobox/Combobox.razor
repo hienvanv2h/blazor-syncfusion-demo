@@ -1,0 +1,67 @@
+﻿@page "/combobox"
+
+<PageTitle>Combobox - Examples</PageTitle>
+
+<h2>Combobox 1</h2>
+<SfComboBox TValue="string" TItem="CarBrand" DataSource="CarBrands" Placeholder="Chọn hãng xe">
+	<ComboBoxFieldSettings Value="Id" Text="Name"></ComboBoxFieldSettings>
+</SfComboBox>
+
+<h2>Combobox 2 - Tùy chỉnh chiều cao, chiều rộng</h2>
+<SfComboBox TValue="string" TItem="CarBrand" DataSource="CarBrands" Placeholder="Chọn hãng xe"
+	PopupHeight="600px" Width="300px">
+	<ComboBoxFieldSettings Value="Id" Text="Name"></ComboBoxFieldSettings>
+</SfComboBox>
+
+<h2>Combobox 3 - Test bind giá trị</h2>
+<div class="col-3">
+	<SfComboBox TValue="string" TItem="CarBrand" DataSource="CarBrands" Placeholder="Chọn hãng xe" 
+		@bind-Value="SelectedBrand" 
+		PopupHeight="400px" PopupWidth="50%">
+		<ComboBoxFieldSettings Value="Id" Text="Name"></ComboBoxFieldSettings>
+	</SfComboBox>
+</div>
+<p class="mt-4">ID: @SelectedBrand</p>
+
+@code {
+	public class CarBrand
+	{
+		public string Id { get; set; }
+		public string Name { get; set; }
+	}
+
+	public IEnumerable<CarBrand> CarBrands { get; set; }
+
+	public string SelectedBrand { get; set; }
+
+	protected override void OnInitialized()
+	{
+		CarBrands = new List<CarBrand>
+		{
+			new CarBrand { Id = "1", Name = "Audi" },
+			new CarBrand { Id = "2", Name = "BMW" },
+			new CarBrand { Id = "3", Name = "Benz" },
+			new CarBrand { Id = "4", Name = "Bugatti" },
+			new CarBrand { Id = "5", Name = "Ferrari" },
+			new CarBrand { Id = "6", Name = "Ford" },
+			new CarBrand { Id = "7", Name = "Honda" },
+			new CarBrand { Id = "8", Name = "Hyundai" },
+			new CarBrand { Id = "9", Name = "Jaguar" },
+			new CarBrand { Id = "10", Name = "Jeep" },
+			new CarBrand { Id = "11", Name = "Kia" },
+			new CarBrand { Id = "12", Name = "Lamborghini" },
+			new CarBrand { Id = "13", Name = "Land Rover" },
+			new CarBrand { Id = "14", Name = "Lexus" },
+			new CarBrand { Id = "15", Name = "Mazda" },
+			new CarBrand { Id = "16", Name = "Mercedes" },
+			new CarBrand { Id = "17", Name = "Nissan" },
+			new CarBrand { Id = "18", Name = "Porsche" },
+			new CarBrand { Id = "19", Name = "Rolls Royce" },
+			new CarBrand { Id = "20", Name = "Subaru" },
+			new CarBrand { Id = "21", Name = "Suzuki" },
+			new CarBrand { Id = "22", Name = "Toyota" },
+			new CarBrand { Id = "23", Name = "Volkswagen" },
+			new CarBrand { Id = "24", Name = "Volvo" }
+		};
+	}
+}

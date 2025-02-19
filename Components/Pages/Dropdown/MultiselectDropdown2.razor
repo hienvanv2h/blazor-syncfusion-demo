@@ -1,0 +1,20 @@
+﻿@page "/multiselect-dropdown-2"
+
+<PageTitle>Multiselect Dropdown Data Manager - Example</PageTitle>
+
+<h3>Multiselect Dropdown - Bind data with Date Manager</h3>
+<hr/>
+
+<div class="col-4 mx-auto">
+	<h4>Chọn môn thể thao</h4>
+    <SfMultiSelect TValue="string[]" TItem="FakeUser" Placeholder="Chọn email" Query="@UserQuery">
+        <SfDataManager Url="https://jsonplaceholder.typicode.com/users"
+                Adaptor="Adaptors.WebApiAdaptor" 
+                CrossDomain="true"></SfDataManager>
+        <MultiSelectFieldSettings Text="Email" Value="Id"></MultiSelectFieldSettings>
+    </SfMultiSelect>
+</div>
+
+@code {
+    public Query UserQuery = new Query().Select(new List<string> { "id", "email" });
+}

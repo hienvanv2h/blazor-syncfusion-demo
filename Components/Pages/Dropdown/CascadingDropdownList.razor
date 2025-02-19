@@ -1,0 +1,111 @@
+﻿@page "/cascading-dropdown-list"
+
+<PageTitle>Cascading Dropdown List - Examples</PageTitle>
+
+<h3>Cascading Dropdown List</h3>
+
+<div class="container">
+    <div class="col-4 mx-auto">
+        <label>Danh mục</label>
+        <SfDropDownList TItem="Category" TValue="string" Placeholder="Chọn danh mục hàng" PopupHeight="auto" DataSource="@CategorieList">
+            <DropDownListEvents TItem="Category" TValue="string" ValueChange="ChangeCategory"></DropDownListEvents>
+            <DropDownListFieldSettings Text="CategoryName" Value="CategoryId"></DropDownListFieldSettings>
+        </SfDropDownList>
+    </div>
+
+    <div class="col-4 mx-auto">
+        <label>Danh mục phân loại</label>
+        <SfDropDownList TItem="SubCategory" TValue="string" Placeholder="Chọn danh mục phân loại" PopupHeight="auto" DataSource="@SubCategorieList" Query="@SubCategoryQuery" @bind-Value="@SubCategoryValue" Enabled="@EnableSubCategoryDropdown">
+            <DropDownListEvents TItem="SubCategory" TValue="string" ValueChange="ChangeSubCategory"></DropDownListEvents>
+            <DropDownListFieldSettings Text="SubCategoryName" Value="SubCategoryId"></DropDownListFieldSettings>
+        </SfDropDownList>
+    </div>
+
+    <div class="col-4 mx-auto">
+        <label>Sản phẩm</label>
+        <SfDropDownList TItem="Product" TValue="string" Placeholder="Chọn sản phẩm" PopupHeight="auto" DataSource="@ProductList" Query="@ProductQuery" @bind-Value="@ProductValue" Enabled="@EnableProductDropdown">
+            <DropDownListFieldSettings Text="ProductName" Value="ProductId"></DropDownListFieldSettings>
+        </SfDropDownList>
+    </div>
+</div>
+
+@code {
+
+    public bool EnableSubCategoryDropdown = false;
+    public bool EnableProductDropdown = false;
+
+    public Query SubCategoryQuery { get; set; }
+    public string SubCategoryValue { get; set; } = null;
+    public Query ProductQuery { get; set; }
+    public string ProductValue { get; set; } = null;
+
+    public void ChangeCategory(ChangeEventArgs<string, Category> args)
+    {
+        EnableSubCategoryDropdown = !string.IsNullOrEmpty(args.Value);
+        EnableProductDropdown = false;
+
+        SubCategoryQuery = new Query()
+            .Where(new WhereFilter()
+                { Field = "CategoryId", Operator = "equal", value = args.Value, IgnoreCase = false, IgnoreAccent = false });
+        SubCategoryValue = null;
+        ProductValue = null;
+    }
+
+    public void ChangeSubCategory(ChangeEventArgs<string, SubCategory> args)
+	{
+		EnableProductDropdown = !string.IsNullOrEmpty(args.Value);
+        ProductQuery = new Query()
+			.Where(new WhereFilter()
+				{ Field = "SubCategoryId", Operator = "equal", value = args.Value, IgnoreCase = false, IgnoreAccent = false });
+		ProductValue = null;
+	}
+
+    public class Category
+    {
+        public string CategoryId { get; set; }
+        public string CategoryName { get; set; }
+    }
+
+    public class SubCategory
+    {
+        public string SubCategoryId { get; set; }
+        public string SubCategoryName { get; set; }
+        public string CategoryId { get; set; }
+    }
+
+    public class Product
+    {
+        public string ProductId { get; set; }
+        public string ProductName { get; set; }
+        public string SubCategoryId { get; set; }
+    }
+
+    List<Category> CategorieList = new List<Category>
+    {
+        new Category { CategoryId = "1", CategoryName = "Điện tử" },
+        new Category { CategoryId = "2", CategoryName = "Thời trang" },
+    };
+
+    List<SubCategory> SubCategorieList = new List<SubCategory>
+    {
+        new SubCategory { SubCategoryId = "11", CategoryId = "1", SubCategoryName = "Điện thoại" },
+        new SubCategory { SubCategoryId = "12", CategoryId = "1", SubCategoryName = "Laptop" },
+        new SubCategory { SubCategoryId = "21", CategoryId = "2", SubCategoryName = "Nam" },
+        new SubCategory { SubCategoryId = "22", CategoryId = "2", SubCategoryName = "Nữ" }
+    };
+
+    List<Product> ProductList = new List<Product>
+    {
+        new Product { ProductId = "111", SubCategoryId = "11", ProductName = "iPhone 14" },
+        new Product { ProductId = "112", SubCategoryId = "11", ProductName = "Samsung Galaxy S23" },
+		new Product { ProductId = "113", SubCategoryId = "11", ProductName = "Xiaomi 12" },
+        new Product { ProductId = "121", SubCategoryId = "12", ProductName = "MacBook Pro" },
+        new Product { ProductId = "122", SubCategoryId = "12", ProductName = "Dell XPS 15" },
+        new Product { ProductId = "211", SubCategoryId = "21", ProductName = "Áo sơ mi nam" },
+        new Product { ProductId = "212", SubCategoryId = "21", ProductName = "Quần nam" },
+        new Product { ProductId = "213", SubCategoryId = "21", ProductName = "Giày nam" },
+        new Product { ProductId = "221", SubCategoryId = "22", ProductName = "Váy dạ hội nữ" },
+        new Product { ProductId = "222", SubCategoryId = "22", ProductName = "Áo dài nữ" },
+        new Product { ProductId = "223", SubCategoryId = "22", ProductName = "Giày cao gót nữ" }
+    };
+}

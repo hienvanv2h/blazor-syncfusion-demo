@@ -1,0 +1,45 @@
+﻿<h3>TextArea - Examples</h3>
+<hr/>
+
+<SfTextArea Placeholder='Enter your comments' Width="100%"></SfTextArea>
+<SfTextArea Placeholder='Enter your comments' Width="100%" FloatLabelType="FloatLabelType.Auto"></SfTextArea>
+<br/>
+<SfTextArea Placeholder='Enter your comments' RowCount="3" ColumnCount='35'></SfTextArea>
+<SfTextArea Placeholder='Enter your comments' RowCount="5" ColumnCount='40'></SfTextArea>
+<br/>
+
+<EditForm Model="@_formModel" OnValidSubmit="@HandleValidSubmit" OnInvalidSubmit="@HandleInvalidSubmit">
+	<DataAnnotationsValidator />
+	<SfTextArea @bind-Value="@_formModel.Address" Placeholder="Nhập địa chỉ" FloatLabelType="@FloatLabelType.Auto"
+			CssClass=@(HasError ? "e-error" : "")></SfTextArea>
+	<ValidationMessage For="@(() => _formModel.Address)" />
+
+	<button type="submit" class="btn btn-primary">Gửi</button>
+	<p class="mt-4">@SubmitMessage</p>
+</EditForm>
+
+@using System.ComponentModel.DataAnnotations;
+@code {
+	private FormModel _formModel = new FormModel();
+	public string SubmitMessage = string.Empty;
+	public bool HasError = false;
+
+	public void HandleValidSubmit()
+	{
+		SubmitMessage = "Gửi thành công!";
+		HasError = false;
+		StateHasChanged();
+	}
+
+	public void HandleInvalidSubmit()
+	{
+		SubmitMessage = "Gửi thất bại.";
+		HasError = true;
+	}
+
+	public class FormModel
+	{
+		[Required(ErrorMessage = "Address is required.")]
+		public string Address { get; set; }
+	}
+}

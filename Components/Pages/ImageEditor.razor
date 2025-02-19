@@ -1,0 +1,15 @@
+﻿@page "/image-editor"
+
+<PageTitle>Image Editor</PageTitle>
+
+<h2 class="mt-4">Image Editor</h2>
+<SfImageEditor Height="400"></SfImageEditor>
+
+@code {
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+}

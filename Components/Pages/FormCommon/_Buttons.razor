@@ -1,0 +1,47 @@
+﻿<h3>Buttons</h3>
+<hr/>
+
+<div class="d-flex flex-column gap-4">
+	<div class="">
+		<SfButton Content="@ButtonContent1" CssClass="e-primary" IconCss="fas fa-play"></SfButton>
+		<SfButton Content="@ButtonContent1" CssClass="e-primary" IconCss="fas fa-play" IconPosition="IconPosition.Right"></SfButton>
+		<SfButton Content="@ButtonContent1" CssClass="e-primary" IconCss="fas fa-play" IconPosition="IconPosition.Top"></SfButton>
+		<SfButton Content="@ButtonContent1" CssClass="e-primary" IconCss="fas fa-play" IconPosition="IconPosition.Bottom"></SfButton>
+	</div>
+	<div>
+		<SfButton Content="Flat" CssClass="e-info e-flat"></SfButton>
+		<SfButton Content="Outline" CssClass="e-warning e-outline"></SfButton>
+		<SfButton Content="Round" CssClass="e-danger e-round"></SfButton>
+	</div>
+	<div>
+		<SfButton Content="Toggle State" CssClass="e-success e-outline" IsToggle="true"></SfButton>
+		<SfButton Content="Disabled" CssClass="e-success e-outline" Disabled="true"></SfButton>
+	</div>
+	<div>
+		<p>On Click</p>
+		<SfButton @ref="Button" Content="@ButtonContent2" CssClass="e-primary col-1" IconCss="@CssIconClass" @onclick="ChangeButtonContent"></SfButton>
+	</div>
+</div>
+
+@code {
+	// Predefine button styles: Primary = "e-primary", Info = "e-info", Success = "e-success", Warning = "e-warning", Danger = "e-danger", Link = "e-link"
+	// Button types: Flat, Outline, Round, Toggle
+	public string ButtonContent1 = "Play";
+	public string CssIconClass = "fas fa-play";
+
+	public SfButton Button;
+	public string ButtonContent2 = "Play";
+
+	public void ChangeButtonContent(MouseEventArgs args)
+	{
+		if(Button.Content == "Play")
+		{
+			ButtonContent2 = "Pause";
+			CssIconClass = "fas fa-pause";
+		} else
+		{
+			ButtonContent2 = "Play";
+			CssIconClass = "fas fa-play";
+		}
+	}
+}

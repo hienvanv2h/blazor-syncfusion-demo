@@ -1,0 +1,46 @@
+﻿<h3>Textbox - Examples</h3>
+<hr/>
+
+<div class="row justify-content-start align-items-center">
+	<SfTextBox Width="240px" Placeholder="Nhập họ tên" @bind-Value="@Name"></SfTextBox>
+	<p class="m-0">Name: @Name</p>
+
+	<SfTextBox Width="240px" Placeholder="Nhập họ tên" @bind-Value="@Name" FloatLabelType="FloatLabelType.Auto"></SfTextBox>
+	<SfTextBox Width="240px" Placeholder="Nhập họ tên" @bind-Value="@Name" Multiline="true"></SfTextBox>
+	<SfTextBox Width="240px" Placeholder="Nhập họ tên" @bind-Value="@Name" Readonly="true"></SfTextBox>
+	<SfTextBox Width="240px" Placeholder="Nhập họ tên" @bind-Value="@Name" Multiline="true" Enabled="false"></SfTextBox>
+</div>
+
+<h4 class="mt-4">Validation State</h4>
+<div class="row justify-content-start align-items-center">
+	<label>Success</label>
+	<SfTextBox Placeholder="Enter your address" CssClass="e-success" Width="300px"></SfTextBox>
+
+	<label>Error</label>
+	<SfTextBox Placeholder="Enter your address" CssClass="e-error" Width="300px"></SfTextBox>
+
+	<label>Warning</label>
+	<SfTextBox Placeholder="Enter your address" CssClass="e-warning" Width="300px"></SfTextBox>
+</div>
+
+<h4 class="mt-4">Validation Example</h4>
+<div>
+	<EditForm Model="@Customer">
+		<DataAnnotationsValidator/>
+		<label>Customer Name</label>
+		<SfTextBox Placeholder="Enter your name" @bind-Value="@Customer.Name" Width="300px"></SfTextBox>
+		<ValidationMessage For="@(() => Customer.Name)" />
+
+		<button type="submit" class="btn btn-primary d-block mt-2">Submit</button>
+	</EditForm>
+</div>
+
+@code {
+	// One-way binding - using Value property
+	// Two-way binding - using @bind-Value
+	// Dynamic value binding - manually call StateHasChanged() method
+	public string Name { get; set; } = "John Doe";
+
+	public Customer Customer = new Customer();
+
+}

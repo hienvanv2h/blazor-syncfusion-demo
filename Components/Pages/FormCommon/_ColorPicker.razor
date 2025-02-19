@@ -1,0 +1,69 @@
+﻿<h3>Color Picker</h3>
+<hr/>
+
+<div class="w-100">
+	<div class="d-flex gap-4 justify-content-between align-items-center w-25">
+		<label>Picker Mode on open (Default)</label>
+		<SfColorPicker Value="@DefaultColor"></SfColorPicker>
+	</div>
+
+	<div class="d-flex gap-4 justify-content-between align-items-center w-25">
+		<label>Pallete Mode on open</label>
+		<SfColorPicker Value="@DefaultColor" Mode="ColorPickerMode.Palette"></SfColorPicker>
+	</div>
+
+@* 	<div class="d-flex flex-column gap-4 justify-content-between mt-4">
+		<label>Inline render</label>
+		<div class="row">
+			<div class="col-md-6">
+				<SfColorPicker Inline="true"></SfColorPicker>
+			</div>
+			<div class="col-md-6">
+				<SfColorPicker Mode="ColorPickerMode.Palette" Inline="true"></SfColorPicker>
+			</div>
+		</div>
+	</div>
+
+	<div class="d-flex flex-column gap-4 justify-content-between mt-4">
+		<label>Disable Swicth Mode</label>
+		<div class="row">
+			<div class="col-md-6">
+				<SfColorPicker Inline="true" ModeSwitcher="false"></SfColorPicker>
+			</div>
+			<div class="col-md-6">
+				<SfColorPicker Mode="ColorPickerMode.Palette" Inline="true" ModeSwitcher="false"></SfColorPicker>
+			</div>
+		</div>
+	</div> *@
+
+	<div class="d-flex flex-column gap-4 justify-content-between mt-4">
+		<label>Màu đã chọn: </label>
+		<div id="preview" style="@PreviewStyle"></div>
+		<SfColorPicker Value="@DefaultColor" Mode="ColorPickerMode.Palette" ValueChange="OnColorChange"></SfColorPicker>
+	</div>
+</div>
+
+@code {
+	public string DefaultColor = "#008000";
+	public string PreviewStyle = "background-color: #008000;";
+
+	public HexColorValue ColorValue { get; set; }
+
+	public void OnColorChange(ColorPickerEventArgs args)
+	{
+		ColorValue = new HexColorValue { Hex = args.CurrentValue.Hex };
+		PreviewStyle = $"background-color: {ColorValue.Hex}";
+	}
+
+	public class HexColorValue {
+		public string Hex { get; set; }
+	}
+}
+
+<style>
+	#preview {
+		height: 40px;
+		width: 100px;
+		margin: 10px 0;
+	}
+</style>

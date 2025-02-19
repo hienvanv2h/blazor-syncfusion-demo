@@ -1,0 +1,36 @@
+﻿<h3>File Upload</h3>
+<hr/>
+
+<SfUploader></SfUploader>
+
+<SfUploader AutoUpload="true">
+    <UploaderEvents ValueChange="@OnChange"></UploaderEvents>
+</SfUploader>
+
+@code {
+    private readonly string LocalPath = "D:\\V2H-stuffs\\Etc";
+
+    private async Task OnChange(UploadChangeEventArgs args)
+    {
+        try
+        {
+            foreach (var file in args.Files)
+            {
+                string uniqueFileName = $"{Guid.NewGuid()}_{file.FileInfo.Name}";
+                string savePath = Path.Combine(LocalPath, uniqueFileName);
+                if(!Directory.Exists(LocalPath))
+                {
+                    Directory.CreateDirectory(LocalPath);
+                }
+                await using var fileStream = new FileStream(savePath, FileMode.Create, FileAccess.Write);
+                await file.File
+                    .OpenReadStream(5 * 1024 * 1024)    // Limit 5 MB
+                    .CopyToAsync(fileStream);
+                Console.WriteLine($"Đã lưu tệp: {savePath}");
+            }
+        } catch (Exception ex)
+		{
+			Console.WriteLine($"Lỗi khi lưu tệp: {ex.Message}");
+		}
+    }
+}

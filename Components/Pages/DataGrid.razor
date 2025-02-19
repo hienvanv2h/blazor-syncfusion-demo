@@ -1,0 +1,114 @@
+﻿@page "/data-grid-advance"
+
+<PageTitle>Danh sách nhân viên</PageTitle>
+
+@* <SfGrid DataSource="@Employees" AllowPaging="true" AllowSorting="true" AllowFiltering="true">
+    <GridPageSettings PageSize="5"></GridPageSettings>
+    <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Excel"></GridFilterSettings>
+    <GridColumns>
+        <GridColumn Field=@nameof(Employee.EmployeeId) HeaderText="ID" TextAlign="TextAlign.Center" Width="100" IsPrimaryKey="true" AllowFiltering="false"></GridColumn>
+        <GridColumn Field=@nameof(Employee.Name) HeaderText="Tên nhân viên" TextAlign="TextAlign.Center" Width="150" AllowFiltering="false"></GridColumn>
+        <GridColumn HeaderText="Ảnh đại diện" Width="150">
+            <Template>
+                @{
+                    var employee = (context as Employee);
+                }
+                <img src="@employee.AvatarUrl" alt="Avatar" style="height:50px; width:50px; border-radius:50%; object-fit:cover;" />
+            </Template>
+        </GridColumn>
+        <GridColumn Field=@nameof(Employee.Position) HeaderText="Vị trí" TextAlign="TextAlign.Center" Width="150" AllowFiltering="true">
+            <FilterItemTemplate>
+                @{
+                    var filterContext = context as FilterItemTemplateContext;
+                    <i class="fa fa-coffee"></i> <ln /> @filterContext?.Value.ToString()
+                }
+            </FilterItemTemplate>
+        </GridColumn>
+        <GridColumn Field=@nameof(Employee.Department) HeaderText="Phòng ban" TextAlign="TextAlign.Center" Width="150" AllowFiltering="true"></GridColumn>
+        <GridColumn Field=@nameof(Employee.HireDate) HeaderText="Ngày gia nhập" TextAlign="TextAlign.Center" Width="150" Format="dd/MM/yyyy" AllowFiltering="false"></GridColumn>
+        <GridColumn Field=@nameof(Employee.Salary) HeaderText="Mức lương (USD)" TextAlign="TextAlign.Center" Width="150" AllowFiltering="false"></GridColumn>
+    </GridColumns>
+</SfGrid> *@
+
+<SfGrid TValue="FakeUser" AllowFiltering="true" AllowPaging="true" Query="@QueryOrder">
+    <SfDataManager Url="https://blazor.syncfusion.com/services/production/api/Orders/" Adaptor="Adaptors.WebApiAdaptor" CrossDomain="true"></SfDataManager>
+    <GridPageSettings PageSize="5"></GridPageSettings>
+    <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Excel"></GridFilterSettings>
+    <GridColumns>
+        <GridColumn Field=@nameof(Order.OrderID) HeaderText="Order ID" IsPrimaryKey="true" TextAlign="TextAlign.Right" Width="120" AllowFiltering="false"></GridColumn>
+        <GridColumn Field=@nameof(Order.CustomerID) HeaderText="Customer Name" Width="150" AllowFiltering="true"></GridColumn>
+        <GridColumn Field=@nameof(Order.OrderDate) HeaderText=" Order Date" Format="d" Type="ColumnType.Date" TextAlign="TextAlign.Right" Width="130" AllowFiltering="true"></GridColumn>
+        <GridColumn Field=@nameof(Order.Freight) HeaderText="Freight" Format="C2" TextAlign="TextAlign.Right" Width="120" AllowFiltering="true"></GridColumn>
+    </GridColumns>
+</SfGrid>
+
+@code {
+    // Emlloyee
+    public class Employee
+    {
+        public int EmployeeId { get; set; }
+        public DateTime HireDate { get; set; }
+        public string Name { get; set; }
+        public string Position { get; set; }
+        public string Department { get; set; }
+        public double Salary { get; set; }
+        public string? AvatarUrl { get; set; }
+    }
+
+    // Order
+    public class Order
+    {
+        public int? OrderID { get; set; }
+        public string CustomerID { get; set; }
+        public DateTime? OrderDate { get; set; }
+        public double? Freight { get; set; }
+    }
+
+    private IEnumerable<Employee> Employees { get; set; }
+    public Query QueryOrder { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Employees = new List<Employee>
+        {
+            new Employee 
+                { EmployeeId = 1, HireDate = new DateTime(2018, 4, 15), Name = "Nguyễn Văn A", 
+                    Position = "Manager", Department = "HR", Salary = 50000, 
+                    AvatarUrl = "https://res.cloudinary.com/dkystkqgb/image/upload/v1739168892/cat1_extlct.jpg" },
+            new Employee 
+                { EmployeeId = 2, HireDate = new DateTime(2020, 6, 12), Name = "Trần Đức Nam", 
+                    Position = "Developer", Department = "IT", Salary = 70000, 
+                    AvatarUrl = "https://res.cloudinary.com/dkystkqgb/image/upload/v1739168893/cat2_usngea.jpg" },
+            new Employee 
+                { EmployeeId = 3, HireDate = new DateTime(2020, 3, 24), Name = "Đặng Văn Cường", 
+                    Position = "Designer", Department = "Marketing", Salary = 60000, 
+                    AvatarUrl = "https://res.cloudinary.com/dkystkqgb/image/upload/v1739168893/cat3_swemch.jpg" },
+            new Employee 
+                { EmployeeId = 4, HireDate = new DateTime(2021, 9, 15), Name = "Phạm Thị Hằng", 
+                    Position = "Analyst", Department = "Finance", Salary = 55000, 
+                    AvatarUrl = "https://res.cloudinary.com/dkystkqgb/image/upload/v1739168892/cat4_dtyvf6.jpg" },
+            new Employee 
+                { EmployeeId = 5, HireDate = new DateTime(2022, 5, 8), Name = "Trần Văn Khoa", 
+                    Position = "Sales Representative", Department = "Sales", Salary = 45000, 
+                    AvatarUrl = "https://res.cloudinary.com/dkystkqgb/image/upload/v1739168892/cat5_qyaiqw.jpg" },
+            new Employee 
+				{ EmployeeId = 6, HireDate = new DateTime(2020, 1, 5), Name = "Nguyễn Văn B", 
+					Position = "Manager", Department = "HR", Salary = 50000, 
+					AvatarUrl = "https://res.cloudinary.com/dkystkqgb/image/upload/v1739168892/cat1_extlct.jpg" },
+            new Employee 
+				{ EmployeeId = 7, HireDate = new DateTime(2020, 6, 12), Name = "Trần Đức Nam",
+                Position = "Developer", Department = "IT", Salary = 70000,
+					AvatarUrl = "https://res.cloudinary.com/dkystkqgb/image/upload/v1739168893/cat2_usngea.jpg" },
+            new Employee 
+				{ EmployeeId = 8, HireDate = new DateTime(2020, 3, 24), Name = "Đặng Văn Cường",
+					Position = "Designer", Department = "Marketing", Salary = 60000,
+					AvatarUrl = "https://res.cloudinary.com/dkystkqgb/image/upload/v1739168893/cat3_swemch.jpg" },
+            new Employee 
+				{ EmployeeId = 9, HireDate = new DateTime(2021, 9, 15), Name = "Phạm Thị Hằng",
+					Position = "Analyst", Department = "Finance", Salary = 55000,
+					AvatarUrl = "https://res.cloudinary.com/dkystkqgb/image/upload/v1739168892/cat4_dtyvf6.jpg" },
+        };
+
+        QueryOrder = new Query();
+    }
+}

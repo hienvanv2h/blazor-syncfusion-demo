@@ -1,0 +1,66 @@
+﻿<h3>Range Slider</h3>
+<hr/>
+
+<div class="col-9">
+	<div class="d-flex gap-2">
+		<label class="w-50">Default Slider</label>
+		<SfSlider Value="30"></SfSlider>
+	</div>
+	<div class="d-flex gap-2">
+		<label class="w-50">Min Range Slider</label>
+		<SfSlider Value="30" Type="SliderType.MinRange"></SfSlider>
+	</div>
+	<div class="d-flex gap-2">
+		<label class="w-50">Range Slider</label>
+		<SfSlider Value="@RangeValue" Type="SliderType.Range"></SfSlider>
+	</div>
+	<div class="d-flex gap-2">
+		<label class="w-50">Bind Value: @Value</label>
+		<SfSlider @bind-Value="@Value" Type="SliderType.MinRange"></SfSlider>
+	</div>
+	<div class="d-flex gap-2">
+		<label class="w-50">Slider with Tooltip</label>
+		<SfSlider @bind-Value="@Value" Type="SliderType.MinRange">
+			<SliderTooltip IsVisible="true" ShowOn="TooltipShowOn.Always" Placement="TooltipPlacement.After"></SliderTooltip>
+		</SfSlider>
+	</div>
+	<div class="d-flex gap-2">
+		<label class="w-50">Slider Show Button</label>
+		<SfSlider @bind-Value="@Value" Type="SliderType.MinRange" ShowButtons="true">
+			<SliderTooltip IsVisible="true" ShowOn="TooltipShowOn.Always" Placement="TooltipPlacement.After"></SliderTooltip>
+		</SfSlider>
+	</div>
+
+	<div class="d-flex gap-2">
+		<label class="w-50">Slider with Ticks</label>
+		<SfSlider @bind-Value="@Value" Type="SliderType.MinRange" ShowButtons="true">
+			<SliderTooltip IsVisible="true" ShowOn="TooltipShowOn.Always" Placement="TooltipPlacement.After"></SliderTooltip>
+			<SliderTicks Placement="Placement.After" ShowSmallTicks="true" LargeStep="10" SmallStep="5"></SliderTicks>
+		</SfSlider>
+	</div>
+
+	<div class="d-flex gap-2">
+		<label class="w-50">Formatting</label>
+		<SfSlider @bind-Value="@Value" Type="SliderType.MinRange" ShowButtons="true">
+			<SliderTooltip IsVisible="true" ShowOn="TooltipShowOn.Always" Placement="TooltipPlacement.After"></SliderTooltip>
+			<SliderTicks Placement="Placement.After" ShowSmallTicks="true" LargeStep="10" SmallStep="5"
+						 Format="0.## &#176;C "></SliderTicks>
+		</SfSlider>
+	</div>
+
+	<div class="d-flex gap-2">
+		<label class="w-50">Limits</label>
+		<SfSlider @bind-Value="@PercentageRangeValue" Type="SliderType.Range" ShowButtons="true" Min="0" Max="10">
+			<SliderTooltip IsVisible="true" ShowOn="TooltipShowOn.Always" Placement="TooltipPlacement.After" Format="P0"></SliderTooltip>
+			<SliderTicks Placement="Placement.After" ShowSmallTicks="true" LargeStep="1" SmallStep="0.5"
+						 Format="P0"></SliderTicks>
+			<SliderLimits MinStart="2" MinEnd="5" MaxStart="6" MaxEnd="9"></SliderLimits>
+		</SfSlider>
+	</div>
+</div>
+
+@code {
+	public int Value = 30;
+	public int[] RangeValue = { 10, 50 };
+	public int[] PercentageRangeValue = { 3, 7 };
+}

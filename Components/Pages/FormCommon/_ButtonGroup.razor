@@ -1,0 +1,56 @@
+﻿<h3>Button Group</h3>
+<hr/>
+
+<div class="d-flex flex-column gap-4">
+    <SfButtonGroup>
+        <ButtonGroupButton>HTML</ButtonGroupButton>
+        <ButtonGroupButton>CSS</ButtonGroupButton>
+        <ButtonGroupButton>JavaScript</ButtonGroupButton>
+    </SfButtonGroup>
+
+    <div class="row">
+        <SfButtonGroup CssClass="col-2">
+            <ButtonGroupButton CssClass="e-primary">View</ButtonGroupButton>
+            <ButtonGroupButton CssClass="e-success">Edit</ButtonGroupButton>
+            <ButtonGroupButton CssClass="e-info">Delete</ButtonGroupButton>
+        </SfButtonGroup>
+        <SfButtonGroup CssClass="col-2">
+            <ButtonGroupButton CssClass="e-link">View</ButtonGroupButton>
+            <ButtonGroupButton CssClass="e-warning">Edit</ButtonGroupButton>
+            <ButtonGroupButton CssClass="e-danger">Delete</ButtonGroupButton>
+        </SfButtonGroup>
+    </div>
+
+    <div class="row">
+        <SfButtonGroup CssClass="e-flat col-2">
+            <ButtonGroupButton>View</ButtonGroupButton>
+            <ButtonGroupButton>Edit</ButtonGroupButton>
+            <ButtonGroupButton>Delete</ButtonGroupButton>
+        </SfButtonGroup>
+        <SfButtonGroup CssClass="e-outline col-2">
+            <ButtonGroupButton CssClass="e-outline">View</ButtonGroupButton>
+            <ButtonGroupButton CssClass="e-outline">Edit</ButtonGroupButton>
+            <ButtonGroupButton CssClass="e-outline">Delete</ButtonGroupButton>
+        </SfButtonGroup>
+        <SfButtonGroup CssClass="e-round-corner col-2">
+            <ButtonGroupButton>View</ButtonGroupButton>
+            <ButtonGroupButton>Edit</ButtonGroupButton>
+            <ButtonGroupButton>Delete</ButtonGroupButton>
+        </SfButtonGroup>
+    </div>
+
+    <div>
+        <SfButtonGroup>
+            <ButtonGroupButton @onclick="onLeftClick">Left</ButtonGroupButton>
+            <ButtonGroupButton>Center</ButtonGroupButton>
+            <ButtonGroupButton>Right</ButtonGroupButton>
+        </SfButtonGroup>
+    </div>
+</div>
+
+@code {
+    private void onLeftClick()
+    {
+        Console.WriteLine("Left Click");
+    }
+}

@@ -1,0 +1,58 @@
+﻿@page "/dropdown-list-2"
+
+@using System.Text.Json.Serialization;
+
+<PageTitle>Dropdown List Data Manager</PageTitle>
+
+<h3>Dropdown List Data Manager</h3>
+<p>@ProgressMessage</p>
+
+<SfDropDownList TValue="string" TItem="OrderDetails" Query="@RemoteDataQuery">
+    <SfDataManager Url="https://blazor.syncfusion.com/services/production/api/Orders"
+                   CrossDomain="true" Adaptor="Syncfusion.Blazor.Adaptors.WebApiAdaptor"></SfDataManager>
+    <DropDownListEvents TValue="string" TItem="OrderDetails"
+                        OnActionBegin="@OnActionBeginhandler"
+                        OnActionComplete="@OnActionCompletehandler"
+                        OnActionFailure="@OnActionFailurehandler"></DropDownListEvents>
+    <DropDownListFieldSettings Text="CustomerID" Value="CustomerID"></DropDownListFieldSettings>
+</SfDropDownList>
+
+<h3 class="mt-4">Dropdown List (User from JSONPlaceholder)</h3>
+<p>@ProgressMessage</p>
+<SfDropDownList TValue="string" TItem="FakeUser" Query="@QueryUser">
+    <SfDataManager Url="https://jsonplaceholder.typicode.com/users"
+                   CrossDomain="true" Adaptor="Syncfusion.Blazor.Adaptors.WebApiAdaptor"></SfDataManager>
+    <DropDownListEvents TValue="string" TItem="FakeUser"
+                        OnActionBegin="@OnActionBeginhandler"
+                        OnActionComplete="@OnLoadedUserSuccesshandler"
+                        OnActionFailure="@OnActionFailurehandler"></DropDownListEvents>
+    <DropDownListFieldSettings Text="Email" Value="Id"></DropDownListFieldSettings>
+</SfDropDownList>
+
+@code {
+    public string ProgressMessage = string.Empty;
+    public Query RemoteDataQuery = new Query().Select(new List<string> { "CustomerID" }).Take(6).RequiresCount();
+
+    public Query QueryUser = new Query().Select(new List<string> { "id", "name", "email" }).Take(10);
+
+    private void OnActionBeginhandler(ActionBeginEventArgs args)
+    {
+        ProgressMessage = "Đang tải dữ liệu...";
+    }
+
+    private void OnActionCompletehandler(ActionCompleteEventArgs<OrderDetails> args)
+    {
+        ProgressMessage = "Tải thành công!";
+    }
+
+    private void OnLoadedUserSuccesshandler(ActionCompleteEventArgs<FakeUser> args)
+    {
+        ProgressMessage = "Tải user thành công!";
+    }
+
+    private void OnActionFailurehandler(Exception args)
+    {
+        ProgressMessage = "Lỗi khi tải dữ liệu: " + args.Message;
+    }
+
+}

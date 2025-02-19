@@ -1,0 +1,21 @@
+﻿@page "/combobox-2"
+
+<PageTitle>Combobox - Examples</PageTitle>
+
+<h2>Combobox - Liên kết dữ liệu remote</h2>
+
+<div class="row">
+    <div class="col-3">
+        <SfComboBox TValue="string" TItem="EmployeeData" Placeholder="Select a Employee" Query="@Query">
+            <SfDataManager Url="https://ej2services.syncfusion.com/production/web-services/api/Employees" 
+                Adaptor="Adaptors.WebApiAdaptor" 
+                CrossDomain=true>
+            </SfDataManager>
+            <ComboBoxFieldSettings Text="FirstName" Value="EmployeeID"></ComboBoxFieldSettings>
+        </SfComboBox>
+    </div>
+</div>
+
+@code {
+    public Query Query = new Query();
+}

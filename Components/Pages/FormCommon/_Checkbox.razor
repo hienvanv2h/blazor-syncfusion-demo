@@ -1,0 +1,15 @@
+﻿<h3>Checkbox</h3>
+
+<div class="d-flex flex-column gap-2">
+    <SfCheckBox Label="Default" @bind-Checked="isChecked"></SfCheckBox>
+    <SfCheckBox Label="Indeterminate" TChecked="bool" Indeterminate="true"></SfCheckBox>
+    <SfCheckBox Label="Disabled" TChecked="bool" Disabled="true"></SfCheckBox>
+    <SfCheckBox Label="Label Before Checkbox" TChecked="bool"
+                LabelPosition="Syncfusion.Blazor.Buttons.LabelPosition.Before"></SfCheckBox>
+</div>
+
+
+@code
+{
+    private bool isChecked = true;
+}

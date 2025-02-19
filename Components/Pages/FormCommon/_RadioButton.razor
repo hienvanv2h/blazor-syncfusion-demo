@@ -1,0 +1,35 @@
+﻿<h3>Radio Button</h3>
+
+<SfRadioButton Label="Rất không hài lòng" Name="options" Value="1" @bind-Checked="stringChecked"></SfRadioButton>
+<SfRadioButton Label="Không hài lòng" Name="options" Value="2" @bind-Checked="stringChecked"></SfRadioButton>
+<SfRadioButton Label="Bình thường" Name="options" Value="3" @bind-Checked="stringChecked"></SfRadioButton>
+<SfRadioButton Label="Hài lòng" Name="options" Value="4" @bind-Checked="stringChecked"></SfRadioButton>
+<SfRadioButton Label="Vô cùng hài lòng" Name="options" Value="5" @bind-Checked="stringChecked"></SfRadioButton>
+
+<br/>
+
+<h4>Model Binding</h4>
+<EditForm Model="@_gender">
+    <DataAnnotationsValidator/>
+    <div class="form-group">
+        <SfRadioButton Label="Nam" Name="Gender" Value="MALE" @bind-Checked="@_gender.GenderName"></SfRadioButton>
+        <SfRadioButton Label="Nữ" Name="Gender" Value="FEMALE" @bind-Checked="@_gender.GenderName"></SfRadioButton>
+        <SfRadioButton Label="Khác" Name="Gender" Value="OTHER" @bind-Checked="@_gender.GenderName"></SfRadioButton>
+        <ValidationMessage For="@(() => _gender.GenderName)" />
+
+    </div>
+</EditForm>
+
+@using System.ComponentModel.DataAnnotations
+@code {
+    // Group radio buttons by Name property
+    private string stringChecked = "3";
+
+    private Gender _gender = new Gender();
+
+    public class Gender
+    {
+        [RegularExpression("^(MALE|FEMALE)$", ErrorMessage = "Gender must be either MALE or FEMALE.")]
+        public string GenderName { get; set; } = "MALE";
+    }
+}
